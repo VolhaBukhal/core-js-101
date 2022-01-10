@@ -208,6 +208,35 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(/* width, height */) {
+  // const cornerRTop = '┐';
+  // const cornerLTop = '┌';
+  // const cornerRButtom = '┘';
+  // const cornerLButtom = '└';
+  // const vertical = '│ ';
+  // const horizontal = '─';
+  // const space = ' ';
+
+  // function drawTopButtomLine(left, right) {
+  //   let str = left;
+  //   for (let i = 1; i < width - 1; i++) {
+  //     str += horizontal;
+  //   }
+  //   str += right;
+  //   return str;
+  // }
+
+  // function drawLine() {
+  //   let str = vertical;
+  //   for (let i = 1; i < width - 1; i++) {
+  //     str += space;
+  //   }
+  //   str += vertical;
+  //   return str;
+  // }
+
+  // const top = drawTopButtomLine(cornerLTop, cornerRTop);
+  // const buttom = drawTopButtomLine(cornerLButtom, cornerRButtom);
+
   throw new Error('Not implemented');
 }
 
@@ -228,12 +257,25 @@ function getRectangleString(/* width, height */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  // const alphabetHalf1 = 'ABCDEFGHIJKLM';
-  // const alphabetHalf2 = 'NOPQRSTUVWXYZ';
-  // const arr = [...str];
-  // const newArr = [];
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const alphabetHalf1 = 'ABCDEFGHIJKLMabcdefghijklm';
+  const alphabetHalf2 = 'NOPQRSTUVWXYZnopqrstuvwxyz';
+  const arr = [...str];
+  const newArr = [];
+  arr.forEach((letter) => {
+    const index1 = alphabetHalf1.indexOf(letter);
+    if (index1 !== -1) {
+      newArr.push(alphabetHalf2[index1]);
+    } else {
+      const index2 = alphabetHalf2.indexOf(letter);
+      if (index2 !== -1) {
+        newArr.push(alphabetHalf1[index2]);
+      } else {
+        newArr.push(letter);
+      }
+    }
+  });
+  return newArr.join('');
 }
 
 /**
@@ -250,10 +292,16 @@ function encodeToRot13(/* str */) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-  const x = value;
-  return typeof x === 'string';
+  if (value) {
+    if (typeof value === 'string') {
+      return true;
+    }
+    if (typeof value.valueOf() === 'string') {
+      return true;
+    }
+  }
+  return false;
 }
-
 
 /**
  * Returns playid card id.
@@ -279,8 +327,12 @@ function isString(value) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const cards = ['A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣',
+    'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦',
+    'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥',
+    'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠'];
+  return cards.indexOf(value);
 }
 
 
