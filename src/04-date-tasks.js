@@ -19,8 +19,8 @@
  *    'Tue, 26 Jan 2016 13:48:02 GMT' => Date()
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
-function parseDataFromRfc2822(/* value */) {
-  throw new Error('Not implemented');
+function parseDataFromRfc2822(value) {
+  return Date.parse(value);
 }
 
 /**
@@ -34,8 +34,8 @@ function parseDataFromRfc2822(/* value */) {
  *    '2016-01-19T16:07:37+00:00'    => Date()
  *    '2016-01-19T08:07:37Z' => Date()
  */
-function parseDataFromIso8601(/* value */) {
-  throw new Error('Not implemented');
+function parseDataFromIso8601(value) {
+  return Date.parse(value);
 }
 
 
@@ -53,8 +53,14 @@ function parseDataFromIso8601(/* value */) {
  *    Date(2012,1,1)    => true
  *    Date(2015,1,1)    => false
  */
-function isLeapYear(/* date */) {
-  throw new Error('Not implemented');
+function isLeapYear(date) {
+  const year = date.getFullYear();
+  const fabEndData = new Date(year, 1, 29);
+  const fabEndDay = fabEndData.getDate();
+  if (fabEndDay === 29) {
+    return true;
+  }
+  return false;
 }
 
 
@@ -73,8 +79,37 @@ function isLeapYear(/* date */) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,10,0,0,250)     => "00:00:00.250"
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
-function timeSpanToString(/* startDate, endDate */) {
-  throw new Error('Not implemented');
+function timeSpanToString(startDate, endDate) {
+  let dif = endDate - startDate;
+  const difHours = Math.trunc(dif / 3600000);
+  dif -= difHours * 3600000;
+  const difMinutes = Math.trunc(dif / 60000);
+  dif -= difMinutes * 60000;
+  const difSeconds = Math.trunc(dif / 1000);
+  dif -= difSeconds * 1000;
+  const difMiliseconds = dif;
+  const formatTime = (time) => {
+    if (String(time).length < 2) {
+      return `0${time}`;
+    }
+    return `${time}`;
+  };
+  const formatMilisecondsTime = (time) => {
+    const numberLength = String(time).length;
+    if (numberLength === 1) {
+      return `00${time}`;
+    } if (numberLength === 2) {
+      return `0${time}`;
+    }
+    return `${time}`;
+  };
+
+  const hours = formatTime(difHours);
+  const minutes = formatTime(difMinutes);
+  const seconds = formatTime(difSeconds);
+  const miliseconds = formatMilisecondsTime(difMiliseconds);
+
+  return `${hours}:${minutes}:${seconds}.${miliseconds}`;
 }
 
 

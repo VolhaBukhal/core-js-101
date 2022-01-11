@@ -43,8 +43,11 @@ function getFizzBuzz(/* num */) {
  *   5  => 120
  *   10 => 3628800
  */
-function getFactorial(/* n */) {
-  throw new Error('Not implemented');
+function getFactorial(n) {
+  if (n === 1) {
+    return n;
+  }
+  return n * getFactorial(n - 1);
 }
 
 
@@ -60,8 +63,12 @@ function getFactorial(/* n */) {
  *   5,10  =>  45 ( = 5+6+7+8+9+10 )
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
-function getSumBetweenNumbers(/* n1, n2 */) {
-  throw new Error('Not implemented');
+function getSumBetweenNumbers(n1, n2) {
+  let sum = 0;
+  for (let i = n1; i <= n2; i += 1) {
+    sum += i;
+  }
+  return sum;
 }
 
 
@@ -165,6 +172,17 @@ function isInsideCircle(/* circle, point */) {
  *   'entente' => null
  */
 function findFirstSingleChar(/* str */) {
+  // const arr = [...str];
+  // const singleArr = [];
+
+  // for (let i = 0; i < arr.length; i += 1) {
+  //   if (!singleArr.includes(arr[i])) {
+  //     singleArr.push(arr[i]);
+  //   } else {
+  //     arr.filter((letter) => letter !== arr[i]);
+  //   }
+  // }
+  // return singleArr[0];
   throw new Error('Not implemented');
 }
 
@@ -208,8 +226,9 @@ function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  const arr = [...str];
+  return arr.reverse().join('');
 }
 
 
@@ -225,8 +244,9 @@ function reverseString(/* str */) {
  *   87354 => 45378
  *   34143 => 34143
  */
-function reverseInteger(/* num */) {
-  throw new Error('Not implemented');
+function reverseInteger(num) {
+  const arr = [...String(num)];
+  return +arr.reverse().join('');
 }
 
 
@@ -268,8 +288,13 @@ function isCreditCardNumber(/* ccn */) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
+function getDigitalRoot(num) {
+  const arr = [...String(num)];
+  let res = arr.reduce((cur, next) => +cur + +next);
+  if (String(res).length > 1) {
+    res = getDigitalRoot(res);
+  }
+  return res;
 }
 
 
