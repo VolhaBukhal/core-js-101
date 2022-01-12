@@ -27,8 +27,18 @@
  *  21 => 'Fizz'
  *
  */
-function getFizzBuzz(/* num */) {
-  throw new Error('Not implemented');
+function getFizzBuzz(num) {
+  const f = 'Fizz';
+  const b = 'Buzz';
+
+  if (num % 3 === 0 && num % 5 === 0) {
+    return `${f}${b}`;
+  } if (num % 3 === 0) {
+    return `${f}`;
+  } if (num % 5 === 0) {
+    return `${b}`;
+  }
+  return num;
 }
 
 
@@ -87,8 +97,8 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,1,1   =>  false
  *   10,10,10 =>  true
  */
-function isTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isTriangle(a, b, c) {
+  return a + b > c && b + c > a && a + c > b;
 }
 
 
@@ -171,19 +181,18 @@ function isInsideCircle(/* circle, point */) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  // const arr = [...str];
-  // const singleArr = [];
+function findFirstSingleChar(str) {
+  const arr = [...str];
+  let char = null;
+  for (let i = 0; i < arr.length; i += 1) {
+    const cur = arr[i];
+    if (arr.indexOf(cur) === arr.lastIndexOf(cur)) {
+      char = cur;
+      break;
+    }
+  }
 
-  // for (let i = 0; i < arr.length; i += 1) {
-  //   if (!singleArr.includes(arr[i])) {
-  //     singleArr.push(arr[i]);
-  //   } else {
-  //     arr.filter((letter) => letter !== arr[i]);
-  //   }
-  // }
-  // return singleArr[0];
-  throw new Error('Not implemented');
+  return char;
 }
 
 
@@ -344,8 +353,9 @@ function isBracketsBalanced(/* str */) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
+function toNaryString(num, n) {
+  const a = num;
+  return a.toString(n);
 }
 
 
