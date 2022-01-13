@@ -218,8 +218,25 @@ function findFirstSingleChar(str) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
+function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
+  const arr = [a, b].sort();
+  const include = ['[', ']'];
+  const exclude = ['(', ')'];
+  let out = null;
+
+  if (isStartIncluded) {
+    out = [include[0], ...arr];
+  } else {
+    out = [exclude[0], ...arr];
+  }
+  if (isEndIncluded) {
+    out = [...out, include[1]];
+  } else {
+    out = [...out, exclude[1]];
+  }
+  const first = out.slice(0, 2).join('');
+  const second = out.slice(-2).join('');
+  return `${first}, ${second}`;
 }
 
 
@@ -328,8 +345,27 @@ function getDigitalRoot(num) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+function isBracketsBalanced(str) {
+  const openedBrackets = ['[', '{', '(', '<'];
+  const closedBrackets = [']', '}', ')', '>'];
+  const stack = [];
+  for (let i = 0; i < str.length; i += 1) {
+    const cur = str[i];
+    if (openedBrackets.includes(cur)) {
+      stack.push(cur);
+    } else {
+      const lastInStack = stack[stack.length - 1];
+      const indexOfLastInStackInOpendedBrackets = openedBrackets.indexOf(lastInStack);
+      const indexOfOpositeOfCur = closedBrackets.indexOf(cur);
+      if (indexOfLastInStackInOpendedBrackets === indexOfOpositeOfCur) {
+        stack.pop();
+      } else {
+        return false;
+      }
+    }
+  }
+
+  return stack.length === 0;
 }
 
 
