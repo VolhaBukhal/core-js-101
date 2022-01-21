@@ -174,6 +174,17 @@ function logger(/* func, logFunc */) {
 function partialUsingArguments(/* fn, ...args1 */) {
   throw new Error('Not implemented');
 }
+// function carryUniversal(func) {
+//   return function curried(...args) {
+//     if(args.length >= func.length) {
+//       return func.apply(this, args)
+//     }
+
+//     return function continueCurrying(...args2) {
+//       return curried.apply(this, args.concat(args2))
+//     }
+//   }
+// }
 
 
 /**

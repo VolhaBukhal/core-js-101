@@ -28,10 +28,25 @@
  *      .catch((error) => console.log(error.message)) // 'Error: Wrong parameter is passed!
  *                                                    //  Ask her again.';
  */
-function willYouMarryMe(/* isPositiveAnswer */) {
-  throw new Error('Not implemented');
+function willYouMarryMe(isPositiveAnswer) {
+  return new Promise((res, rej) => {
+    if (typeof isPositiveAnswer === 'boolean') {
+      if (isPositiveAnswer) {
+        return res('Hooray!!! She said "Yes"!');
+      }
+      return res('Oh no, she said "No".');
+    }
+    return rej(new Error('Wrong parameter is passed! Ask her again.'));
+  });
 }
 
+
+// let myPromise = new Promise(function(myResolve, myReject) {
+//   // "Producing Code" (May take some time)
+
+//     myResolve(); // when successful
+//     myReject();  // when error
+//   });
 
 /**
  * Return Promise object that should be resolved with array containing plain values.
@@ -48,8 +63,8 @@ function willYouMarryMe(/* isPositiveAnswer */) {
  *    })
  *
  */
-function processAllPromises(/* array */) {
-  throw new Error('Not implemented');
+function processAllPromises(array) {
+  return Promise.all(array);
 }
 
 /**
@@ -71,8 +86,8 @@ function processAllPromises(/* array */) {
  *    })
  *
  */
-function getFastestPromise(/* array */) {
-  throw new Error('Not implemented');
+function getFastestPromise(array) {
+  return Promise.race(array);
 }
 
 /**
@@ -95,6 +110,19 @@ function getFastestPromise(/* array */) {
 function chainPromises(/* array, action */) {
   throw new Error('Not implemented');
 }
+
+// Promise.allSettled(urls.map(url => fetch(url)))
+//   .then(results => { // (*)
+//     results.forEach((result, num) => {
+//       if (result.status == "fulfilled") {
+//         alert(`${urls[num]}: ${result.value.status}`);
+//       }
+//       if (result.status == "rejected") {
+//         alert(`${urls[num]}: ${result.reason}`);
+//       }
+//     });
+//   });
+
 
 module.exports = {
   willYouMarryMe,
