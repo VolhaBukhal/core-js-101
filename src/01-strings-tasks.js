@@ -207,37 +207,43 @@ function extractEmails(str) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  // const cornerRTop = '┐';
-  // const cornerLTop = '┌';
-  // const cornerRButtom = '┘';
-  // const cornerLButtom = '└';
-  // const vertical = '│ ';
-  // const horizontal = '─';
-  // const space = ' ';
+function getRectangleString(width, height) {
+  const cornerRTop = '┐';
+  const cornerLTop = '┌';
+  const cornerRButtom = '┘';
+  const cornerLButtom = '└';
+  const vertical = '│';
+  const horizontal = '─';
+  const space = ' ';
 
-  // function drawTopButtomLine(left, right) {
-  //   let str = left;
-  //   for (let i = 1; i < width - 1; i++) {
-  //     str += horizontal;
-  //   }
-  //   str += right;
-  //   return str;
-  // }
+  function drawTopButtomLine(left, right) {
+    let str = left;
+    for (let i = 1; i < width - 1; i += 1) {
+      str += horizontal;
+    }
+    str += right;
+    return str;
+  }
 
-  // function drawLine() {
-  //   let str = vertical;
-  //   for (let i = 1; i < width - 1; i++) {
-  //     str += space;
-  //   }
-  //   str += vertical;
-  //   return str;
-  // }
+  function drawLine() {
+    let str = vertical;
+    for (let i = 1; i < width - 1; i += 1) {
+      str += space;
+    }
+    str += vertical;
+    return str;
+  }
 
-  // const top = drawTopButtomLine(cornerLTop, cornerRTop);
-  // const buttom = drawTopButtomLine(cornerLButtom, cornerRButtom);
+  const top = drawTopButtomLine(cornerLTop, cornerRTop);
+  const buttom = drawTopButtomLine(cornerLButtom, cornerRButtom);
+  const line = drawLine();
+  let result = `${top}\n`;
+  for (let i = 1; i < height - 1; i += 1) {
+    result += `${line}\n`;
+  }
+  result += `${buttom}\n`;
 
-  throw new Error('Not implemented');
+  return result;
 }
 
 

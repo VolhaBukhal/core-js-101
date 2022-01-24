@@ -66,27 +66,6 @@ function getPowerFunction(exponent) {
  *   getPolynom()      => null
  */
 function getPolynom(/* ...args */) {
-  // const count = args.length;
-  // console.log('count', count);
-  // const coefficients = [];
-  // if (count > 0) {
-  //   for (let i = 0; i < count; i += 1) {
-  //     coefficients.push(args[i]);
-  //   }
-  //   return function (x) {
-  //     const res = [];
-  //     let degree = count - 1;
-  //     if (degree) {
-  //       for (let i = 0; i < coefficients.length; i += 1) {
-  //         const term = `${coefficients[i]} * ${x} ** ${degree}`;
-  //         res.push(term);
-  //         degree -= 1;
-  //       }
-  //     }
-  //     return res;
-  //   };
-  // }
-  // return null;
   throw new Error('Not implemented');
 }
 
@@ -105,10 +84,18 @@ function getPolynom(/* ...args */) {
  *   ...
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
-function memoize(/* func */) {
-  throw new Error('Not implemented');
+function memoize(func) {
+  const cache = {};
+  return (...args) => {
+    const str = args.join();
+    if (str in cache) {
+      return cache[str];
+    }
+    const result = func();
+    cache[str] = result;
+    return result;
+  };
 }
-
 
 /**
  * Returns the function trying to call the passed function and if it throws,
@@ -171,20 +158,11 @@ function logger(/* func, logFunc */) {
  *   partialUsingArguments(fn, 'a','b','c')('d') => 'abcd'
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
-function partialUsingArguments(/* fn, ...args1 */) {
-  throw new Error('Not implemented');
+function partialUsingArguments(fn, ...args1) {
+  return function second(...arg) {
+    return fn(...args1, ...arg);
+  };
 }
-// function carryUniversal(func) {
-//   return function curried(...args) {
-//     if(args.length >= func.length) {
-//       return func.apply(this, args)
-//     }
-
-//     return function continueCurrying(...args2) {
-//       return curried.apply(this, args.concat(args2))
-//     }
-//   }
-// }
 
 
 /**
